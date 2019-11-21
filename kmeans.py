@@ -47,6 +47,7 @@ def gen_k_means(data, k, max_iterations, eps, output_file_path):
 
     # while loop to generate and assign the cluster
     while not is_converged(k_mean_cluster_centroids, new_k_mean_cluster_centroids, eps, iteration_number) and max_iterations > iteration_number:
+
         k_mean_cluster_centroids = dict(new_k_mean_cluster_centroids)
 
         # dictionary to store the mapping from cluster index to list of points
@@ -54,6 +55,7 @@ def gen_k_means(data, k, max_iterations, eps, output_file_path):
         # dictionary to store the mapping from cluster index to list of point indices
         clusters_indices = dict()
 
+        """ Assign  each  data  point  to  each  of  the k  clusters  based on  Euclidean  distance """
         # looping through each data point
         for point_index, point in enumerate(data):
             # for each data point calculating the distance fro each centroid
@@ -84,6 +86,7 @@ def gen_k_means(data, k, max_iterations, eps, output_file_path):
         # resetting the unchanged centroids
         unchanged_centroids = set()
 
+        """ updating  the  cluster  centroids """
         # looping through each key and each list in the dictionary
         for _cluster_index, cluster_list in clusters.items():
             # converting the list to numpy array
@@ -100,6 +103,7 @@ def gen_k_means(data, k, max_iterations, eps, output_file_path):
         final_cluster_indices = clusters_indices
         iteration_number += 1
 
+    """ outputting the cluster centroids """
     # opening the file path
     f = open(output_file_path, mode='w')
 
@@ -155,8 +159,10 @@ def main():
     eps = float(str(args.eps))
     output_file = os.path.abspath(str(args.output_file))
 
+    # reading the database
     data = read_data(database_file)
 
+    # generating k clusters
     gen_k_means(data, k, max_iters, eps, output_file)
 
 
