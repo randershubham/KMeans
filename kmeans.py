@@ -24,14 +24,11 @@ def gen_k_means(data, k, max_iterations, eps, output_file_path):
     for i in range(0, k):
         k_mean_cluster_centroids[i] = data[centroids_indices[i]]
 
-    distance_matrix = np.zeros((data.shape[0], k))
-
     new_k_mean_cluster_centroids = k_mean_cluster_centroids
-
     iteration_number = 0
-
     final_cluster_indices = dict()
     unchanged_centroids = set()
+    distance_matrix = np.zeros((data.shape[0], k))
 
     while not is_converged(k_mean_cluster_centroids, new_k_mean_cluster_centroids, eps, iteration_number) and max_iterations > iteration_number:
         k_mean_cluster_centroids = dict(new_k_mean_cluster_centroids)
@@ -56,7 +53,7 @@ def gen_k_means(data, k, max_iterations, eps, output_file_path):
             cluster_index_list.append(point_index)
             clusters_indices[cluster_index] = cluster_index_list
 
-        unchanged_centroids = set()
+            unchanged_centroids = set()
 
         for _cluster_index, cluster_list in clusters.items():
             np_cluster_list = np.asarray(cluster_list)
