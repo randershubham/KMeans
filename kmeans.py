@@ -106,7 +106,7 @@ def gen_k_means(data, k, max_iterations, eps, output_file_path):
     # looping through each cluster index
     for i in range(0, k):
         # getting the list of the indices
-        indices_list = final_cluster_indices[i]
+        indices_list = sorted(final_cluster_indices[i])
         f.write(str(i) + ': ')
         f.write(' '.join([str(elem) for elem in indices_list]))
         f.write('\n')
